@@ -3,30 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Salieabs Solutions LLP</title>
+    <title>Agnisumukh Energy Solutions Pvt. Ltd</title>
     <link rel="stylesheet" href="styles.css">
+    <script src="script.js"></script>
+    <script>
+        const Dish1 = "Briyani";
+        const Dish2 = "Sambar";
+        const Dish3 = "Rice";
+        const Dish4 = "Curd";
+    </script>
 </head>
 <body>
     <header>
-        <h1>Salieabs Solutions LLP</h1>
+        <h1>Agnisumukh Energy Solutions Pvt. Ltd</h1>
     </header>
     <div class="container">
         <nav>
             <ul>
-                <li><a href="#" onclick="showInputs('Briyani')">Briyani</a></li>
-                <li><a href="#" onclick="showInputs('Sambar')">Sambar</a></li>
-                <li><a href="#" onclick="showInputs('Rice')">Rice</a></li>
+                <li><a href="#" onclick="showInputs(Dish1)"><script>document.write(Dish1);</script></a></li>
+                <li><a href="#" onclick="showInputs(Dish2)"><script>document.write(Dish2);</script></a></li>
+                <li><a href="#" onclick="showInputs(Dish3)"><script>document.write(Dish3);</script></a></li>
+                <li><a href="#" onclick="showInputs(Dish4)"><script>document.write(Dish4);</script></a></li>
+                <li><button id="disconnect-btn" onclick="disconnectWiFi()">LogOut</button></li>
             </ul>
         </nav>
         <main>
             <div id="placeholder" class="placeholder">
-                <p>"Cooking is an art, but all art requires knowing something about the techniques and materials" – Nathan Myhrvold</p>
+                <p>"Cooking is an art, but all art requires knowing something about the techniques and materials"</p>
             </div>
-            <div id="inputs" class="input-container" style="display:none;">
-                <!-- Inputs will be displayed here -->
-            </div>
+            <div id="inputs" class="input-container" style="display: none;"></div>
         </main>
     </div>
-    <script src="script.js"></script>
 </body>
 </html>

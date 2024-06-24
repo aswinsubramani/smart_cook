@@ -1,86 +1,157 @@
 body {
     font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
     margin: 0;
     padding: 0;
 }
 
 header {
-    background-color: #4CAF50;
+    background-color: #581745;
     color: white;
+    padding: 10px 0;
     text-align: center;
-    padding: 1em;
 }
 
 .container {
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 nav {
-    background-color: #333;
-    width: 200px;
-    height: 100vh; /* Full height */
+    width: 100%;
+    max-width: 200px;
+    margin-bottom: 20px;
 }
 
 nav ul {
     list-style-type: none;
-    margin: 0;
     padding: 0;
+    width: 100%;
 }
 
 nav ul li {
-    border-bottom: 1px solid #444;
+    margin: 10px 0;
 }
 
-nav ul li a {
-    display: block;
-    color: white;
-    text-align: left;
-    padding: 14px 16px;
+nav ul li a, nav ul li button {
     text-decoration: none;
+    color: #581745;
+    font-weight: bold;
+    display: block;
+    padding: 10px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
 }
 
-nav ul li a:hover {
-    background-color: #111;
+nav ul li a:hover, nav ul li button:hover {
+    text-decoration: underline;
 }
 
 main {
-    flex-grow: 1;
-    padding: 2em;
+    width: 100%;
+    max-width: 600px;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    box-sizing: border-box;
 }
 
 .placeholder {
-    font-size: 1.2em;
-    color: #777;
     text-align: center;
-    margin-top: 20%;
+    font-style: italic;
+    color: #666;
 }
 
 .input-container {
-    width: 300px;
-    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+}
+
+.input-container h2 {
+    text-align: left;
+    width: 100%;
 }
 
 .input-container label {
-    display: block;
-    margin-top: 1em;
+    margin-top: 10px;
+    width: 100%;
+}
+
+.input-container .temperature-pair {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
 }
 
 .input-container input {
+    margin-top: 5px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
     width: 100%;
-    padding: 0.5em;
-    margin-top: 0.5em;
+    box-sizing: border-box;
+    font-size: 1rem;
 }
 
 .input-container button {
-    display: block;
-    margin-top: 1em;
-    padding: 0.5em;
-    background-color: #4CAF50;
-    color: white;
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #581745;
+    color: white; 
     border: none;
+    border-radius: 5px;
     cursor: pointer;
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 1rem;
 }
 
 .input-container button:hover {
-    background-color: #45a049;
+    background-color: #581745;
+}
+
+#disconnect-btn {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    text-align: center;
+    box-sizing: border-box;
+    font-size: 1rem;
+}
+
+#disconnect-btn:hover {
+    background-color: #e53935;
+}
+
+@media (min-width: 768px) {
+    .container {
+        flex-direction: row;
+        align-items: flex-start;
+    }
+
+    nav {
+        margin-right: 20px;
+        margin-bottom: 0;
+    }
+
+    main {
+        margin-left: 20px;
+        max-width: 800px;
+    }
 }
