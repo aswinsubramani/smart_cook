@@ -83,19 +83,20 @@ main {
     width: 100%;
 }
 
-.input-container label {
-    margin-top: 10px;
+.input-container .input-set {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
     width: 100%;
+    margin-bottom: 20px;
 }
 
-.input-container .temperature-pair {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
+.input-container .input-set label {
+    margin-bottom: 5px;
 }
 
-.input-container input, .input-container select {
-    margin-top: 5px;
+.input-container .input-set input,
+.input-container .input-set select {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;

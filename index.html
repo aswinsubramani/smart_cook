@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agnisumukh Energy Solutions Pvt. Ltd</title>
     <link rel="stylesheet" href="styles.css">
-    <script src="script.js" defer></script>
 </head>
 <body>
     <header>
@@ -14,10 +13,10 @@
     <div class="container">
         <nav>
             <ul>
-                <li><a href="#" onclick="showInputs('Biryani')">Biryani</a></li>
-                <li><a href="#" onclick="showInputs('Sambar')">Sambar</a></li>
-                <li><a href="#" onclick="showInputs('Rice')">Rice</a></li>
-                <li><a href="#" onclick="showInputs('Curd')">Curd</a></li>
+                <li><a href="#" onclick="showInputs(Dish1)">Biryani</a></li>
+                <li><a href="#" onclick="showInputs(Dish2)">Sambar</a></li>
+                <li><a href="#" onclick="showInputs(Dish3)">Rice</a></li>
+                <li><a href="#" onclick="showInputs(Dish4)">Curd</a></li>
                 <li><button id="disconnect-btn" onclick="disconnectWiFi()">LogOut</button></li>
             </ul>
         </nav>
@@ -28,5 +27,6 @@
             <div id="inputs" class="input-container" style="display: none;"></div>
         </main>
     </div>
+    <script src="script.js"></script>
 </body>
 </html>
