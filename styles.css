@@ -94,7 +94,7 @@ main {
     width: 100%;
 }
 
-.input-container input {
+.input-container input, .input-container select {
     margin-top: 5px;
     padding: 10px;
     border: 1px solid #ccc;
@@ -108,7 +108,7 @@ main {
     margin-top: 20px;
     padding: 15px;
     background-color: #581745;
-    color: white; 
+    color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -118,7 +118,7 @@ main {
 }
 
 .input-container button:hover {
-    background-color: #581745;
+    background-color: #6d1a50;
 }
 
 #disconnect-btn {
@@ -137,6 +137,12 @@ main {
 
 #disconnect-btn:hover {
     background-color: #e53935;
+}
+
+hr {
+    width: 100%;
+    border: 1px solid #ccc;
+    margin: 20px 0;
 }
 
 @media (min-width: 768px) {

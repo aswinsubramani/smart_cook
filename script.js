@@ -1,7 +1,7 @@
-let briyaniTemps = { low: null, high: null };
-let sambarTemps = { low: null, high: null };
-let riceTemps = { low: null, high: null };
-let curdTemps = { low: null, high: null };
+const Dish1 = "Biryani";
+const Dish2 = "Sambar";
+const Dish3 = "Rice";
+const Dish4 = "Curd";
 
 function showInputs(menuItem) {
     const inputsDiv = document.getElementById('inputs');
@@ -10,74 +10,58 @@ function showInputs(menuItem) {
     placeholderDiv.style.display = 'none';
     inputsDiv.style.display = 'block';
 
-    fetch(`/settings?dish=${menuItem}`)
-        .then(response => response.text())
-        .then(data => {
-            const [low, high] = data.split(',');
-            let tempValues = { low, high };
+    const inputBoxes = [];
+    for (let i = 0; i < 10; i++) {
+        inputBoxes.push(`
+            <div class="input-set">
+                <h2>${menuItem} ${i + 1}</h2>
+                <label for="low-temp-${i}">Low Temperature:</label>
+                <input type="number" id="low-temp-${i}" name="low-temp-${i}">
+                <label for="high-temp-${i}">High Temperature:</label>
+                <input type="number" id="high-temp-${i}" name="high-temp-${i}">
+                <label for="timer-${i}">Timer:</label>
+                <input type="number" id="timer-${i}" name="timer-${i}">
+                <label for="status-${i}">Status:</label>
+                <select id="status-${i}" name="status-${i}">
+                    <option value="ON">ON</option>
+                    <option value="OFF">OFF</option>
+                </select>
+                <hr>
+            </div>
+        `);
+    }
 
-            if (menuItem === Dish1)
-            {
-                briyaniTemps = tempValues;
-            } 
-            else if (menuItem === Dish2) 
-            {
-                sambarTemps = tempValues;
-            }
-            else if (menuItem === Dish3) 
-            {
-                riceTemps = tempValues;
-            }
-            else if (menuItem === Dish4)
-            {
-                curdTemps = tempValues;
-            }
-
-            inputsDiv.innerHTML = `
-                <h2>${menuItem}</h2>
-                <label for="low-temp">Low Temperature:</label>
-                <input type="number" id="low-temp" name="low-temp" value="${tempValues.low || ''}">
-                <label for="high-temp">High Temperature:</label>
-                <input type="number" id="high-temp" name="high-temp" value="${tempValues.high || ''}">
-                <button onclick="submitForm('${menuItem}')">Submit</button>
-            `;
-        })
-        .catch(error => console.error('Error:', error));
+    inputsDiv.innerHTML = inputBoxes.join('');
+    inputsDiv.innerHTML += `<button onclick="submitForm('${menuItem}')">Submit</button>`;
 }
 
-function submitForm(menuItem) 
-{
-    const lowTemp = document.getElementById('low-temp').value;
-    const highTemp = document.getElementById('high-temp').value;
+function submitForm(menuItem) {
+    const data = [];
 
-    // if (validateTemps(lowTemp, highTemp)) {
-    //     fetch('/save', {
-    //         method: 'POST',
-    //         headers: {
-    //             'Content-Type': 'application/x-www-form-urlencoded'
-    //         },
-    //         body: `dish=${menuItem}&low=${lowTemp}&high=${highTemp}`
-    //     })
-    //     .then(response => response.text())
-    //     .then(data => {
-    //         alert(data);
-    //     })
-    //     .catch(error => console.error('Error:', error));
-    // }
+    for (let i = 0; i < 10; i++) {
+        const lowTemp = document.getElementById(`low-temp-${i}`).value;
+        const highTemp = document.getElementById(`high-temp-${i}`).value;
+        const timer = document.getElementById(`timer-${i}`).value;
+        const status = document.getElementById(`status-${i}`).value;
+
+        data.push({ lowTemp, highTemp, timer, status });
+    }
+
+    console.log(data);
 }
 
 function validateTemps(low, high) {
     return true;
 }
 
-// function disconnectWiFi() {
-//     fetch('/disconnect', {
-//         method: 'POST'
-//     })
-//     .then(response => response.text())
-//     .then(data => {
-//         alert(data);
-//         window.location.href = 'about:blank';
-//     })
-//     .catch(error => console.error('Error:', error));
-// }
+function disconnectWiFi() {
+    fetch('/disconnect', {
+        method: 'POST'
+    })
+    .then(response => response.text())
+    .then(data => {
+        alert(data);
+        window.location.href = 'about:blank';
+    })
+    .catch(error => console.error('Error:', error));
+}
