@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agnisumukh Energy Solutions Pvt. Ltd</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: #581745;
+            color: white;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        nav {
+            width: 100%;
+            max-width: 200px;
+            margin-bottom: 20px;
+        }
+
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+            width: 100%;
+        }
+
+        nav ul li {
+            margin: 10px 0;
+        }
+
+        nav ul li a, nav ul li button {
+            text-decoration: none;
+            color: #581745;
+            font-weight: bold;
+            display: block;
+            padding: 10px;
+            border: none;
+            background: none;
+            cursor: pointer;
+            width: 100%;
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+        nav ul li a:hover, nav ul li button:hover {
+            text-decoration: underline;
+        }
+
+        main {
+            width: 100%;
+            max-width: 600px;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            box-sizing: border-box;
+        }
+
+        .placeholder {
+            text-align: center;
+            font-style: italic;
+            color: #666;
+        }
+
+        .input-container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            width: 100%;
+        }
+
+        .input-container h2 {
+            text-align: left;
+            width: 100%;
+        }
+
+        .input-container .input-set {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .input-container .input-set label {
+            margin-bottom: 5px;
+        }
+
+        .input-container .input-set input, 
+        .input-container .input-set select {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 100%;
+            box-sizing: border-box;
+            font-size: 1rem;
+        }
+
+        .input-container button {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #581745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            box-sizing: border-box;
+            font-size: 1rem;
+        }
+
+        .input-container button:hover {
+            background-color: #6d1a50;
+        }
+
+        #disconnect-btn {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f44336;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            text-align: center;
+            box-sizing: border-box;
+            font-size: 1rem;
+        }
+
+        #disconnect-btn:hover {
+            background-color: #e53935;
+        }
+
+        hr {
+            width: 100%;
+            border: 1px solid #ccc;
+            margin: 20px 0;
+        }
+
+        @media (min-width: 768px) {
+            .container {
+                flex-direction: row;
+                align-items: flex-start;
+            }
+
+            nav {
+                margin-right: 20px;
+                margin-bottom: 0;
+            }
+
+            main {
+                margin-left: 20px;
+                max-width: 800px;
+            }
+        }
+
+        /* New styles for the dish label */
+        .dish-label {
+            text-align: center;
+            background-color: #581745; /* Changed background color */
+            padding: 10px;
+            border-radius: 5px;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        /* Error message style */
+        .error-message {           
+            color: red;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        /* JSON display styles */
+        .json-display {
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 20px;
+            white-space: pre-wrap;
+            font-family: monospace;
+        }
+    </style>
+    <script>
+        const Dish1 = "Biryani";
+        const Dish2 = "Rice";
+        const Dish3 = "Curd";
+
+        function showInputForm(menuItem) {
+            const inputsDiv = document.getElementById('inputs');
+            const placeholderDiv = document.getElementById('placeholder');
+
+            placeholderDiv.style.display = 'none';
+            inputsDiv.style.display = 'block';
+
+            inputsDiv.innerHTML = `
+                <div class="dish-label">${menuItem}</div>
+                <label for="sequence-number">Number of Sequences:</label>
+                <input type="number" id="sequence-number" name="sequence-number" min="1" max="10" value="1">
+                <button onclick="generateInputs('${menuItem}')">OK</button>
+                <div id="error-message" class="error-message" style="display: none;">Invalid number of sequences. Please enter a number between 1 and 10.</div>
+            `;
+        }
+
+        function generateInputs(menuItem) {
+            const numSequences = document.getElementById('sequence-number').value;
+            const errorMessage = document.getElementById('error-message');
+
+            if (numSequences < 1 || numSequences > 10) {
+                errorMessage.style.display = 'block';
+                return;
+            } else {
+                errorMessage.style.display = 'none';
+            }
+
+            const inputsDiv = document.getElementById('inputs');
+
+            const inputBoxes = [];
+            for (let i = 0; i < numSequences; i++) {
+                inputBoxes.push(`
+                    <h2>Sequence ${i + 1}</h2>
+                    <div class="input-set">
+                        <div>
+                            <label for="low-temp-${i}">Low Temperature:</label>
+                            <input type="number" id="low-temp-${i}" name="low-temp-${i}" value="">
+                        </div>
+                        <div>
+                            <label for="high-temp-${i}">High Temperature:</label>
+                            <input type="number" id="high-temp-${i}" name="high-temp-${i}" value="">
+                        </div>
+                        <div>
+                            <label for="timer-${i}">Timer:</label>
+                            <input type="number" id="timer-${i}" name="timer-${i}" value="">
+                        </div>
+                        <div>
+                            <label for="status-${i}">Status:</label>
+                            <select id="status-${i}" name="status-${i}">
+                                <option value="ON">ON</option>
+                                <option value="OFF">OFF</option>
+                            </select>
+                        </div>
+                    </div>
+                    <hr>
+                `);
+            }
+
+            inputsDiv.innerHTML = `
+                <div class="dish-label">${menuItem}</div>
+                ${inputBoxes.join('')}
+                <button onclick="submitForm('${menuItem}', ${numSequences})">Submit</button>
+                <button onclick="displayJSON('${menuItem}', ${numSequences})">Display JSON</button>
+                <div id="json-display" class="json-display"></div>
+            `;
+        }
+
+        function displayJSON(menuItem, numSequences) {
+            const data = {
+                analyzerId: "A231200006",
+                Biryani: [],
+                Rice: [],
+                Curd: []
+            };
+
+            for (let i = 0; i < numSequences; i++) {
+                const lowTemp = document.getElementById('low-temp-' + i).value;
+                const highTemp = document.getElementById('high-temp-' + i).value;
+                const timer = document.getElementById('timer-' + i).value;
+                const status = document.getElementById('status-' + i).value;
+
+                const sequenceData = {
+                    [`Low_temperature_${menuItem.charAt(0)}${i + 1}`]: lowTemp,
+                    [`High_temperature_${menuItem.charAt(0)}${i + 1}`]: highTemp,
+                    [`Timer_${menuItem.charAt(0)}${i + 1}`]: timer,
+                    [`Status_${menuItem.charAt(0)}${i + 1}`]: status
+                };
+
+                data[menuItem].push(sequenceData);
+            }
+
+            // Display JSON in the JSON display div
+            const jsonDisplayDiv = document.getElementById('json-display');
+            jsonDisplayDiv.textContent = JSON.stringify(data, null, 2);
+
+            // Log JSON to console
+            console.log(data);
+        }
+
+        function submitForm(menuItem, numSequences) {
+            const data = {
+                analyzerId: "A231200006",
+                Biryani: [],
+                Rice: [],
+                Curd: []
+            };
+
+            for (let i = 0; i < numSequences; i++) {
+                const lowTemp = document.getElementById('low-temp-' + i).value;
+                const highTemp = document.getElementById('high-temp-' + i).value;
+                const timer = document.getElementById('timer-' + i).value;
+                const status = document.getElementById('status-' + i).value;
+
+                const sequenceData = {
+                    [`Low_temperature_${menuItem.charAt(0)}${i + 1}`]: lowTemp,
+                    [`High_temperature_${menuItem.charAt(0)}${i + 1}`]: highTemp,
+                    [`Timer_${menuItem.charAt(0)}${i + 1}`]: timer,
+                    [`Status_${menuItem.charAt(0)}${i + 1}`]: status
+                };
+
+                data[menuItem].push(sequenceData);
+            }
+
+            fetch('/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.text())
+            .then(text => alert(text))
+            .catch(error => console.error('Error:', error));
+        }
+
+        function disconnectWiFi() {
+            fetch('/disconnect', {
+                method: 'POST'
+            })
+            .then(response => response.text())
+            .then(data => {
+                alert(data);
+                window.location.href = 'about:blank';
+            })
+            .catch(error => console.error('Error:', error));
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Agnisumukh Energy Solutions Pvt. Ltd</h1>
+    </header>
+    <div class="container">
+        <nav>
+            <ul>
+                <li><a href="#" onclick="showInputForm(Dish1)"><script>document.write(Dish1);</script></a></li>
+                <li><a href="#" onclick="showInputForm(Dish2)"><script>document.write(Dish2);</script></a></li>
+                <li><a href="#" onclick="showInputForm(Dish3)"><script>document.write(Dish3);</script></a></li>
+                <li><button id="disconnect-btn" onclick="disconnectWiFi()">LogOut</button></li>
+            </ul>
+        </nav>
+        <main>
+            <div id="placeholder" class="placeholder">
+                <p>"Cooking is an art, but all art requires knowing something about the techniques and materials"</p>
+            </div>
+            <div id="inputs" class="input-container" style="display: none;"></div>
+        </main>
+    </div>
+</body>
+</html>
