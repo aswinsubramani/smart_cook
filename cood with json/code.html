@@ -169,11 +169,9 @@
                 max-width: 800px;
             }
         }
-
-        /* New styles for the dish label */
         .dish-label {
             text-align: center;
-            background-color: #581745; /* Changed background color */
+            background-color: #581745; 
             padding: 10px;
             border-radius: 5px;
             color: white;
@@ -182,7 +180,6 @@
             margin-bottom: 20px;
         }
 
-        /* Error message style */
         .error-message {           
             color: red;
             font-weight: bold;
@@ -190,7 +187,6 @@
             margin-top: 10px;
         }
 
-        /* JSON display styles */
         .json-display {
             background-color: #f0f0f0;
             border: 1px solid #ccc;
@@ -205,6 +201,13 @@
         const Dish1 = "Biryani";
         const Dish2 = "Rice";
         const Dish3 = "Curd";
+
+          const data = {
+            analyzerId: "A231200006",
+            Biryani: [],
+            Rice: [],
+            Curd: []
+        };
 
         function showInputForm(menuItem) {
             const inputsDiv = document.getElementById('inputs');
@@ -274,12 +277,14 @@
         }
 
         function displayJSON(menuItem, numSequences) {
-            const data = {
-                analyzerId: "A231200006",
-                Biryani: [],
-                Rice: [],
-                Curd: []
+            const tempData = {
+                analyzerId: data.analyzerId,
+                Biryani: data.Biryani.slice(),
+                Rice: data.Rice.slice(),
+                Curd: data.Curd.slice()
             };
+
+            tempData[menuItem] = [];
 
             for (let i = 0; i < numSequences; i++) {
                 const lowTemp = document.getElementById('low-temp-' + i).value;
@@ -294,24 +299,17 @@
                     [`Status_${menuItem.charAt(0)}${i + 1}`]: status
                 };
 
-                data[menuItem].push(sequenceData);
+                tempData[menuItem].push(sequenceData);
             }
 
-            // Display JSON in the JSON display div
             const jsonDisplayDiv = document.getElementById('json-display');
-            jsonDisplayDiv.textContent = JSON.stringify(data, null, 2);
+            jsonDisplayDiv.textContent = JSON.stringify(tempData, null, 2);
 
-            // Log JSON to console
-            console.log(data);
+            console.log(tempData);
         }
 
         function submitForm(menuItem, numSequences) {
-            const data = {
-                analyzerId: "A231200006",
-                Biryani: [],
-                Rice: [],
-                Curd: []
-            };
+            data[menuItem] = [];
 
             for (let i = 0; i < numSequences; i++) {
                 const lowTemp = document.getElementById('low-temp-' + i).value;
